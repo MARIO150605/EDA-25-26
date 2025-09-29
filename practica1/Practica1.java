@@ -6,10 +6,11 @@ import java.util.*;
 
 public class Practica1 implements IRedSocial {
 
+    ArrayList<Conexion> red = new ArrayList<>();
+
     public static void main(String[] args) {
 
-        ArrayList<Conexion> red = new ArrayList<>();
-
+        leeFichero("practica1/ejemplo.txt");
     }
 
     public int numUsuarios() {
@@ -17,7 +18,7 @@ public class Practica1 implements IRedSocial {
     }
 
     public int numConexiones() {
-        return 5;
+        return red.size();
     }
 
     public int numGrumos() {
@@ -34,6 +35,10 @@ public class Practica1 implements IRedSocial {
 
             while ((linea = br.readLine()) != null) {
                 partes = linea.split(" ");
+                u1 = Integer.parseInt(partes[0]);
+                u2 = Integer.parseInt(partes[1]);
+
+                red.add(new Conexion(u1, u2));
 
             }
 
