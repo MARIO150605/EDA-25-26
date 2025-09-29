@@ -17,6 +17,7 @@ public class Conexion {
         return this.c2;
     }
 
+    @Override
     public String toString() {
         return "" + c1 + " " + c2;
     }

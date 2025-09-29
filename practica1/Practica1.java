@@ -8,9 +8,14 @@ public class Practica1 implements IRedSocial {
 
     ArrayList<Conexion> red = new ArrayList<>();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        Practica1 p = new Practica1();
 
-        leeFichero("practica1/ejemplo.txt");
+        p.leeFichero("practica1/ejemplo.txt");
+
+        System.out.println(p.red);
+        System.out.println(p.numConexiones());
+
     }
 
     public int numUsuarios() {
@@ -43,6 +48,7 @@ public class Practica1 implements IRedSocial {
             }
 
         } catch (IOException e) {
+
             e.printStackTrace();
         }
 
