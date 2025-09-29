@@ -32,16 +32,8 @@ public class EDASesion1 {
             
         colorear(matriz, d); // coloreo la matriz
 
-        for (int i = 0; i < d; i++) { // imprimir matriz
-              for (int j = 0; j < matriz[i].length; j++) {
-              System.out.print(matriz[i][j] + " ");
-                }
-            System.out.println("");
 
-            }
-             
-            System.out.println();
-
+                
         
         /* 
         int[] vector = { 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130,140,150,160,170,180,190,200 }; // vector con numero de filas
