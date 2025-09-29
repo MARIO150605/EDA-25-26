@@ -1,0 +1,70 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.*;
+
+public class Practica1 implements IRedSocial {
+
+    public static void main(String[] args) {
+
+        ArrayList<Conexion> red = new ArrayList<>();
+
+    }
+
+    public int numUsuarios() {
+        return 5;
+    }
+
+    public int numConexiones() {
+        return 5;
+    }
+
+    public int numGrumos() {
+        return 5;
+    }
+
+    public void leeFichero(String nomfich) throws IOException {
+
+        String[] partes;
+        int u1, u2;
+        try (BufferedReader br = new BufferedReader(new FileReader(nomfich))) {
+
+            String linea;
+
+            while ((linea = br.readLine()) != null) {
+                partes = linea.split(" ");
+
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void setRed(List<Conexion> red) {
+
+    }
+
+    public void creaUsuarios() {
+
+    }
+
+    public void creaGrumos() {
+
+    }
+
+    public void ordenaSelecciona(double pmin) {
+
+    }
+
+    public void salvaNuevasRel(String nomfich) throws IOException {
+
+    }
+
+    public void informe() {
+
+    }
+
+}
