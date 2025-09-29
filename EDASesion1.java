@@ -13,41 +13,36 @@ public class EDASesion1 {
         int d; // filas
 
         int matriz[][]; // la matriz
-
+        /* 
         System.out.println("Introduce numero de filas (d): "); // pedir al usuario las d filas
         d = in.nextInt();
 
-
         matriz = casos(d); // llamo a la funcion casos
-
+        
         for (int i = 0; i < d; i++) { // imprimir matriz
-              for (int j = 0; j < matriz[i].length; j++) {
-              System.out.print(matriz[i][j] + " ");
-                }
+            for (int j = 0; j < matriz[i].length; j++) {
+                System.out.print(matriz[i][j] + " ");
+            }
             System.out.println("");
 
-            }
-             
-            System.out.println();
-            
+        }
+        
+        System.out.println();
+
         colorear(matriz, d); // coloreo la matriz
 
-
-                
-        
-        /* 
+        */
         int[] vector = { 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130,140,150,160,170,180,190,200 }; // vector con numero de filas
         for (int k = 0; k < vector.length - 1; k++) { // recorrer el vector
             OP=0;
             d = vector[k]; // cojo el numero de filas
             matriz = casos(d); // llamo a la funcion casos
             colorear(matriz, d); // coloreo la matriz
-        */
-
         
-            System.out.println("Numero de operaciones para " + d + " filas: " + OP); // muestro el numero de operaciones
-                                                                                     // para las d filas de la matriz
 
+        System.out.println("Numero de operaciones para " + d + " filas: " + OP); // muestro el numero de operaciones
+                                                                                 // para las d filas de la matriz
+        }
         in.close();
 
     }
@@ -97,7 +92,7 @@ public class EDASesion1 {
 
         Random random = new Random();
         int[][] matriz = new int[d][d];
-        int lineas = random.nextInt(15);
+        int lineas = random.nextInt(20);
         int linea;
 
         for (int i = 0; i < d; i++) { // rellenar de blanco
@@ -121,11 +116,11 @@ public class EDASesion1 {
         while (lineas != 0) {
             linea = random.nextInt(d - 1);
 
-            for (int i = 0; i < d; i++) {
+            for (int i = 1; matriz[linea][i] != NEGRO; i++) {
                 matriz[linea][i] = NEGRO;
             }
 
-            for (int j = 0; j < d; j++) {
+            for (int j = 1; matriz[j][linea] != NEGRO; j++) {
                 matriz[j][linea] = NEGRO;
             }
 

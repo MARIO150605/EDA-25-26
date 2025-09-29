@@ -1,22 +1,11 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.*;
 
-public class Practica1 implements IRedSocial {
+public class RedSocial implements IRedSocial {
 
     ArrayList<Conexion> red = new ArrayList<>();
-
-    public static void main(String[] args) throws IOException {
-        Practica1 p = new Practica1();
-
-        p.leeFichero("practica1/ejemplo.txt");
-
-        System.out.println(p.red);
-        System.out.println(p.numConexiones());
-
-    }
 
     public int numUsuarios() {
         return 5;
