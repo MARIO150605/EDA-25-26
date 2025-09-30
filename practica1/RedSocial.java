@@ -6,9 +6,13 @@ import java.util.*;
 public class RedSocial implements IRedSocial {
 
     ArrayList<Conexion> red = new ArrayList<>();
+    ArrayList<Integer> usr = new ArrayList<>();
+    ArrayList<ArrayList<Integer>> grus = new ArrayList<>();
+    ArrayList<Integer> asig = new ArrayList<>();
+
 
     public int numUsuarios() {
-        return 5;
+        return usr.size();
     }
 
     public int numConexiones() {
@@ -16,7 +20,7 @@ public class RedSocial implements IRedSocial {
     }
 
     public int numGrumos() {
-        return 5;
+        return grus.size();
     }
 
     public void leeFichero(String nomfich) throws IOException {
@@ -49,9 +53,36 @@ public class RedSocial implements IRedSocial {
 
     public void creaUsuarios() {
 
+        int u1,u2;
+        for (Conexion c : red){
+
+            u1 = c.getc1();
+            u2 = c.getc2();
+
+            if(!usr.contains(u1)){
+                usr.add(u1);
+            }
+
+            if(!usr.contains(u2)){
+                usr.add(u2);
+            }
+            
+        }
+
     }
 
     public void creaGrumos() {
+
+        ArrayList<Integer> grumo;
+
+        for(Integer u : usr){
+            if(!asig.contains(u)){
+                grumo = new ArrayList<>();
+                uber_amigos(u, red, grumo);
+                grus.add(grumo);
+                asig.addAll(grumo);
+            }
+        }
 
     }
 
@@ -64,6 +95,28 @@ public class RedSocial implements IRedSocial {
     }
 
     public void informe() {
+
+    }
+
+    public void uber_amigos(int usuario, ArrayList<Conexion> red, ArrayList<Integer> grumo){
+        
+        int amigo,u1,u2;
+        for (Conexion c : red){
+            amigo = -1;
+            u1 = c.getc1();
+            u2 = c.getc2();
+
+            if(usuario == u1 ){
+                amigo = u2;
+            } else if(usuario == u2){
+                amigo = u1;
+            }
+
+            if(amigo != -1 && !grumo.contains(amigo)){
+                grumo.add(amigo);
+                uber_amigos(amigo, red, grumo);
+            }
+        }
 
     }
 

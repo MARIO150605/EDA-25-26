@@ -93,7 +93,7 @@ public class EDASesion1 {
         Random random = new Random();
         int[][] matriz = new int[d][d];
         int lineas = random.nextInt(20);
-        int linea;
+        int lineaH,lineaV;
 
         for (int i = 0; i < d; i++) { // rellenar de blanco
             for (int j = 0; j < d; j++) {
@@ -114,14 +114,15 @@ public class EDASesion1 {
         // System.out.println(lineas);
 
         while (lineas != 0) {
-            linea = random.nextInt(d - 1);
+            lineaH = random.nextInt(d - 1);
+            lineaV = random.nextInt(d - 1);
 
-            for (int i = 1; matriz[linea][i] != NEGRO; i++) {
-                matriz[linea][i] = NEGRO;
+            for (int i = 1; matriz[lineaV][i] != NEGRO; i++) {
+                matriz[lineaV][i] = NEGRO;
             }
 
-            for (int j = 1; matriz[j][linea] != NEGRO; j++) {
-                matriz[j][linea] = NEGRO;
+            for (int j = 1; matriz[j][lineaH] != NEGRO; j++) {
+                matriz[j][lineaH] = NEGRO;
             }
 
             lineas--;
