@@ -1,5 +1,4 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.*;
 import java.io.IOException;
 import java.util.*;
 
@@ -25,25 +24,17 @@ public class RedSocial implements IRedSocial {
 
     public void leeFichero(String nomfich) throws IOException {
 
-        String[] partes;
+        Scanner in = new Scanner(new File(nomfich));
         int u1, u2;
-        try (BufferedReader br = new BufferedReader(new FileReader(nomfich))) {
 
-            String linea;
+        while(in.hasNextInt()){
+            u1=in.nextInt();
+            u2=in.nextInt();
 
-            while ((linea = br.readLine()) != null) {
-                partes = linea.split(" ");
-                u1 = Integer.parseInt(partes[0]);
-                u2 = Integer.parseInt(partes[1]);
-
-                red.add(new Conexion(u1, u2));
-
-            }
-
-        } catch (IOException e) {
-
-            e.printStackTrace();
+            red.add(new Conexion(u1, u2));
         }
+
+        in.close();
 
     }
 
@@ -88,6 +79,8 @@ public class RedSocial implements IRedSocial {
 
     public void ordenaSelecciona(double pmin) {
 
+        grus.sort( (l1,l2) -> l2.size()-l1.size() );
+       
     }
 
     public void salvaNuevasRel(String nomfich) throws IOException {
@@ -98,7 +91,7 @@ public class RedSocial implements IRedSocial {
 
     }
 
-    public void uber_amigos(int usuario, ArrayList<Conexion> red, ArrayList<Integer> grumo){
+    private void uber_amigos(int usuario, ArrayList<Conexion> red, ArrayList<Integer> grumo){
         
         int amigo,u1,u2;
         for (Conexion c : red){
