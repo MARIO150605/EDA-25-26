@@ -9,6 +9,8 @@ public class RedSocial implements IRedSocial {
     ArrayList<ArrayList<Integer>> grus = new ArrayList<>();
     ArrayList<Integer> asig = new ArrayList<>();
 
+    ArrayList<Conexion> nuevas = new ArrayList<>(); // array para las nuevas conexiones 
+    ArrayList<ArrayList<Integer>> grusSeleccionados = new ArrayList<>(); // array para obtener los grumos utilizados para el porcentaje
 
     public int numUsuarios() {
         return usr.size();
@@ -69,6 +71,7 @@ public class RedSocial implements IRedSocial {
         for(Integer u : usr){
             if(!asig.contains(u)){
                 grumo = new ArrayList<>();
+                grumo.add(u);
                 uber_amigos(u, red, grumo);
                 grus.add(grumo);
                 asig.addAll(grumo);
@@ -79,12 +82,52 @@ public class RedSocial implements IRedSocial {
 
     public void ordenaSelecciona(double pmin) {
 
+        int acumulado=0;
+        double porcentaje;
+        boolean superado = false;
+        int u1,u2;
+
         grus.sort( (l1,l2) -> l2.size()-l1.size() );
+
+        for(ArrayList<Integer> grumo : grus){
+            if(!superado){
+
+                acumulado+=grumo.size();
+                porcentaje = (double) acumulado/numUsuarios() *100.0;
+                grusSeleccionados.add(grumo);
+
+                if(porcentaje >=pmin){
+                    superado = true;
+                }
+            }      
+        }
+
+        if(grusSeleccionados.size() >1){
+            for(int i=0;i<grusSeleccionados.size()-1;i++){
+
+                ArrayList<Integer> grumo1 = grusSeleccionados.get(i);
+                ArrayList<Integer> grumo2 = grusSeleccionados.get(i+1);
+
+                u1 = grumo1.get(1);
+                u2 = grumo2.get(0);
+                
+                nuevas.add(new Conexion(u1, u2));
+            }
+        }
        
     }
 
     public void salvaNuevasRel(String nomfich) throws IOException {
 
+        PrintWriter extra;
+        if(grusSeleccionados.size()>1){
+            extra = new PrintWriter(nomfich);
+            for(Conexion c : nuevas){
+                extra.println(c);
+            }
+
+            extra.close();
+        }
     }
 
     public void informe() {

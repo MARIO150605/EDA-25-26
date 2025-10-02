@@ -92,5 +92,7 @@ public class GeneradorCasosPrueba {
         Random rnd = new Random(123456789); // <- Para que sea siempre igual para un mismo tamaño
         List<Conexion> red = generaCaso(n, rnd);
         Files.write(Paths.get(nomfich), red.stream().map(Conexion::toString).collect(Collectors.toList()));
+
+        teclado.close();
     }
 }
