@@ -12,10 +12,12 @@ public class Main {
         System.out.println("        ANALISIS DE Y \n-------------------------------\n");
         System.out.print("Fichero principal: ");    //Solicitamos fichero principal
         nomfich = in.nextLine();
+
         inicio = System.nanoTime();
         Y.leeFichero("practica1/"+nomfich);
         fin = System.nanoTime();
         t = (fin - inicio)/ 1000000000.0;
+
         System.out.print("Fichero de nuevas conexiones (pulse enter si no existe): ");  //Solicitamos fichero extra
         extra = in.nextLine();
         if(!extra.equals("")){
@@ -26,8 +28,6 @@ public class Main {
         pmin = in.nextDouble();
 
         System.out.println("Lectura fichero: "+ t);
-
-
 
                 // nuevos tiempos
         inicio = System.nanoTime();
@@ -47,8 +47,6 @@ public class Main {
         fin = System.nanoTime();
         t = (fin - inicio)/ 1000000000.0;
         System.out.println("Ordenacion y seleccion de grumos: "+ t);
-
-
 
         System.out.println(Y.numUsuarios() + " usuarios, " + Y.numConexiones() + " conexiones");
         System.out.print("Existen " + Y.numGrumos() + " grumos.");
