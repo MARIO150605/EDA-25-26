@@ -3,9 +3,9 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        double inicio, tiempo, porcentaje;
+        long inicio, fin;
+        double pmin, t;
         String nomfich, extra;
-        
         RedSocial Y = new RedSocial();
         Scanner in = new Scanner(System.in);
 
@@ -14,8 +14,8 @@ public class Main {
         nomfich = in.nextLine();
         inicio = System.nanoTime();
         Y.leeFichero("practica1/"+nomfich);
-        tiempo = System.nanoTime();
-
+        fin = System.nanoTime();
+        t = (fin - inicio)/ 1000000000.0;
         System.out.print("Fichero de nuevas conexiones (pulse enter si no existe): ");  //Solicitamos fichero extra
         extra = in.nextLine();
         if(!extra.equals("")){
@@ -23,10 +23,32 @@ public class Main {
         }
 
         System.out.print("Porcentaje mayor tamaño grumo: ");
-        porcentaje = in.nextDouble();
-        System.out.println("Lectura fichero: "+(tiempo - inicio) / 1000000000);
+        pmin = in.nextDouble();
 
-                //...creacion lista de usuarios...
+        System.out.println("Lectura fichero: "+ t);
+
+
+
+                // nuevos tiempos
+        inicio = System.nanoTime();
+        Y.creaUsuarios();
+        fin = System.nanoTime();
+        t = (fin - inicio)/ 1000000000.0;
+        System.out.println("Creacion lista usuarios: " + t);
+
+        inicio = System.nanoTime();
+        Y.creaGrumos();
+        fin = System.nanoTime();
+        t = (fin - inicio)/ 1000000000.0;
+        System.out.println("Creacion lista grumos: " + t);
+
+        inicio = System.nanoTime();
+        Y.ordenaSelecciona(pmin);
+        fin = System.nanoTime();
+        t = (fin - inicio)/ 1000000000.0;
+        System.out.println("Ordenacion y seleccion de grumos: "+ t);
+
+
 
         System.out.println(Y.numUsuarios() + " usuarios, " + Y.numConexiones() + " conexiones");
         System.out.print("Existen " + Y.numGrumos() + " grumos.");
@@ -35,4 +57,6 @@ public class Main {
 
         in.close();
     }
+
+    
 }
