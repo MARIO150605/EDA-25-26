@@ -21,10 +21,10 @@ public class Main {
         System.out.print("Fichero de nuevas conexiones (pulse enter si no existe): "); // Solicitamos fichero extra
         extra = in.nextLine();
         if (!extra.equals("")) {
-            Y.leeFichero("pracica1/" + extra);
+            Y.leeFichero("practica1/" + extra);
         }
 
-        System.out.print("Porcentaje mayor tamaño grumo: ");
+        System.out.print("Porcentaje mayor tamano grumo: ");
         pmin = in.nextDouble();
 
         System.out.println("Lectura fichero: " + t1);
@@ -51,6 +51,7 @@ public class Main {
         System.out.println(Y.numUsuarios() + " usuarios, " + Y.numConexiones() + " conexiones");
         System.out.println("Existen " + Y.numGrumos() + " grumos.");
 
+        Y.salvaNuevasRel("practica1/extra.txt");
         Y.informe();
 
         in.close();

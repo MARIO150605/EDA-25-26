@@ -9,8 +9,7 @@ public class RedSocial implements IRedSocial {
     ArrayList<Integer> asig = new ArrayList<>();
 
     ArrayList<Conexion> nuevas = new ArrayList<>(); // array para las nuevas conexiones
-    ArrayList<ArrayList<Integer>> grusSeleccionados = new ArrayList<>(); // array para obtener los grumos utilizados
-                                                                         // para el porcentaje
+    ArrayList<ArrayList<Integer>> grusSeleccionados = new ArrayList<>(); // array para obtener los grumos utilizados para el porcentaje
 
     public int numUsuarios() {
         return usr.size();
@@ -41,6 +40,8 @@ public class RedSocial implements IRedSocial {
     }
 
     public void setRed(List<Conexion> red) {
+
+        this.red.addAll(red);
 
     }
 
@@ -87,7 +88,7 @@ public class RedSocial implements IRedSocial {
         boolean superado = false;
         int u1, u2;
 
-        grus.sort((l1, l2) -> l2.size() - l1.size()); // ordena los grumos de mayor a menor tamaño
+        grus.sort((l1, l2) -> l2.size() - l1.size()); // ordena los grumos de mayor a menor tamano
 
         for (ArrayList<Integer> grumo : grus) {
             if (!superado) {
@@ -131,26 +132,26 @@ public class RedSocial implements IRedSocial {
     }
 
     public void informe() {
-        int tam;
+
+        int tam,i=1;
         double porcentaje;
-        ArrayList<Integer> grumo = new ArrayList<>();
 
         if (grusSeleccionados.size() == 1) { // CASO: No se necesitan relaciones nuevas
-            grumo = grusSeleccionados.get(0);
-            tam = grumo.size();
-            porcentaje = (tam * 100.0) / usr.size();
+            tam = grusSeleccionados.get(0).size();
+            porcentaje = (double) tam/numUsuarios() *100;
             porcentaje = Math.round(porcentaje * 100.0) / 100.0; // redondea a dos decimales
             System.out.println("El mayor grumo contiene " + tam + " usuarios (" + porcentaje + "%)");
             System.out.println("No son necesarias nuevas relaciones de amistad");
 
         } else { // CASO: Se necesitan relaciones nuevas
             System.out.println("Se deben unir los " + grusSeleccionados.size() + " mayores");
-            for (int i = 0; i < grusSeleccionados.size(); i++) {
-                grumo = grusSeleccionados.get(i);
+
+            for (ArrayList<Integer> grumo : grusSeleccionados) {
                 tam = grumo.size();
-                porcentaje = (tam * 100.0) / usr.size();
+                porcentaje = (double) tam/numUsuarios() *100;
                 porcentaje = Math.round(porcentaje * 100.0) / 100.0; // redondea a dos decimales
-                System.out.println("#" + (i + 1) + ": " + tam + " usuarios (" + porcentaje + "%)");
+                System.out.println("#" + (i) + ": " + tam + " usuarios (" + porcentaje + "%)");
+                i++;
             }
 
             System.out.println("Nuevas relaciones de amistad (salvadas en extra.txt)");

@@ -19,19 +19,7 @@ public class Conexion {
 
     @Override
     public String toString() {
-        return "" + c1 + " " + c2;
-    }
-
-    
-    public static void main(String []args){
-      
-      Conexion c = new Conexion(32, 5);
-      
-      System.out.println(c.toString());
-      System.out.println(c.getc1());
-      System.out.println(c.getc2());
-      
+        return c1 + " " + c2;
     }
      
-
 }

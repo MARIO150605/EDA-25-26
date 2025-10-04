@@ -31,9 +31,12 @@ public class EDASesion1 {
 
         colorear(matriz, d); // coloreo la matriz
 
+        System.out.println("Numero de operaciones para " + d + " filas: " + OP); // muestro el numero de operaciones
+                                                                                 // para las d filas de la matriz
         */
+         
         int[] vector = { 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130,140,150,160,170,180,190,200 }; // vector con numero de filas
-        for (int k = 0; k < vector.length - 1; k++) { // recorrer el vector
+        for (int k = 0; k < vector.length; k++) { // recorrer el vector
             OP=0;
             d = vector[k]; // cojo el numero de filas
             matriz = casos(d); // llamo a la funcion casos
@@ -43,6 +46,7 @@ public class EDASesion1 {
         System.out.println("Numero de operaciones para " + d + " filas: " + OP); // muestro el numero de operaciones
                                                                                  // para las d filas de la matriz
         }
+        
         in.close();
 
     }
@@ -92,8 +96,9 @@ public class EDASesion1 {
 
         Random random = new Random();
         int[][] matriz = new int[d][d];
-        int lineas = random.nextInt(20);
-        int lineaH,lineaV;
+        int lineas = random.nextInt(10)+10;
+        int x,y;
+        boolean horizontal;
 
         for (int i = 0; i < d; i++) { // rellenar de blanco
             for (int j = 0; j < d; j++) {
@@ -111,18 +116,46 @@ public class EDASesion1 {
             matriz[i][d - 1] = NEGRO;
         }
 
-        // System.out.println(lineas);
+        //System.out.println(lineas);
 
+        /* 
         while (lineas != 0) {
-            lineaH = random.nextInt(d - 1);
-            lineaV = random.nextInt(d - 1);
+            lineaH = random.nextInt(d - 2)+1;
+            lineaV = random.nextInt(d - 2)+1;
 
-            for (int i = 1; matriz[lineaV][i] != NEGRO; i++) {
-                matriz[lineaV][i] = NEGRO;
+            for (int j = 1; matriz[j][lineaV] != NEGRO; j++) {
+                matriz[j][lineaV] = NEGRO;
             }
 
-            for (int j = 1; matriz[j][lineaH] != NEGRO; j++) {
-                matriz[j][lineaH] = NEGRO;
+            for (int i = 1; matriz[lineaH][i] != NEGRO; i++) {
+                matriz[lineaH][i] = NEGRO;
+            }
+
+            lineas--;
+        }
+        */
+
+        while (lineas != 0) {
+
+            // Elegir un punto negro aleatorio dentro de la matriz
+            do {
+                x = random.nextInt(d-1);
+                y = random.nextInt(d-1);
+            } while (matriz[y][x] != NEGRO);
+
+            horizontal = random.nextBoolean(); // decidir dirección
+
+            if (horizontal) {
+                // Pintar hacia la derecha hasta encontrar negro o borde
+                for (int i = x + 1; i < d  && matriz[y][i] != NEGRO; i++) {
+                    matriz[y][i] = NEGRO;
+                }
+                
+            } else {
+                // Pintar hacia abajo hasta encontrar negro o borde
+                for (int j = y + 1; j < d  && matriz[j][x] != NEGRO; j++) {
+                    matriz[j][x] = NEGRO;
+                }
             }
 
             lineas--;
