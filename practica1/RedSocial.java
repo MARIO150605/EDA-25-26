@@ -41,7 +41,7 @@ public class RedSocial implements IRedSocial {
 
     public void setRed(List<Conexion> red) {
 
-        this.red.addAll(red);
+        this.red = new ArrayList<>(red) ;
 
     }
 
