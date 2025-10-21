@@ -3,6 +3,9 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+/**
+ * Clase que implementa la interfaz IRedSocial
+ */
 public class RedSocial implements IRedSocial {
 
     ArrayList<Conexion> red = new ArrayList<>();
@@ -11,20 +14,43 @@ public class RedSocial implements IRedSocial {
     ArrayList<Integer> asig = new ArrayList<>();
 
     ArrayList<Conexion> nuevas = new ArrayList<>(); // array para las nuevas conexiones
-    ArrayList<ArrayList<Integer>> grusSeleccionados = new ArrayList<>(); // array para obtener los grumos utilizados para el porcentaje
+    ArrayList<ArrayList<Integer>> grusSeleccionados = new ArrayList<>(); // array para obtener los grumos utilizados
+                                                                         // para el porcentaje
 
+    /**
+     * Funcion que devuelve el numero de usuarios
+     * 
+     * @return numero de usuarios
+     */
     public int numUsuarios() {
         return usr.size();
     }
 
+    /**
+     * Funcion que devuelve el numero de conexiones
+     * 
+     * @return numero de conexiones
+     */
     public int numConexiones() {
         return red.size();
     }
 
+    /**
+     * Funcion que devuelve el numero de grumos
+     * 
+     * @return numero de grumos
+     */
     public int numGrumos() {
         return grus.size();
     }
 
+    /**
+     * Metodo que lee el fichero de conexiones por parametro
+     * e introduce las conexiones en la lista de conexiones
+     * 
+     * @param nomfich ruta al fichero de conexiones
+     * 
+     */
     public void leeFichero(String nomfich) throws IOException {
 
         Scanner in = new Scanner(new File(nomfich));
@@ -41,12 +67,22 @@ public class RedSocial implements IRedSocial {
 
     }
 
+    /**
+     * Metodo que dada una lista de conexiones externa por parametro
+     * actualiza la lista de conexiones de la red
+     * 
+     * @param red lista de conexiones externa
+     */
     public void setRed(List<Conexion> red) {
 
-        this.red = new ArrayList<>(red) ;
+        this.red = new ArrayList<>(red);
 
     }
 
+    /**
+     * Metodo que crea la lista de usuarios a partir de
+     * la lista de conexiones
+     */
     public void creaUsuarios() {
 
         int u1, u2;
@@ -67,6 +103,11 @@ public class RedSocial implements IRedSocial {
 
     }
 
+    /**
+     * Metodo que crea la lista de grumos a partir de
+     * la lista de usuarios utilizando la funcion
+     * recursiva uber_amigos
+     */
     public void creaGrumos() {
 
         ArrayList<Integer> grumo;
@@ -83,6 +124,16 @@ public class RedSocial implements IRedSocial {
 
     }
 
+    /**
+     * Metodo que ordena la lista de grumos de mayor a menor según su tamanio
+     * y posteriormente mediante un bucle se suman los numeros de usuarios de cada
+     * grumo hasta conseguir el porcentaje minimo por parametro.
+     * Si se necesita unir mas de un grumo entonces, creamos las nuevas conexiones
+     * escogiendo el segundo usuario de un grumo con el primer usuario del grumo
+     * siguiente
+     * 
+     * @param pmin porcentaje minimo requerido
+     */
     public void ordenaSelecciona(double pmin) {
 
         int acumulado = 0;
@@ -120,6 +171,12 @@ public class RedSocial implements IRedSocial {
 
     }
 
+    /**
+     * Metodo que guarda las nuevas conexiones obtenidas en el
+     * fichero dado por parametro
+     * 
+     * @param nomfich ruta al fichero de escritura
+     */
     public void salvaNuevasRel(String nomfich) throws IOException {
 
         PrintWriter extra;
@@ -133,14 +190,18 @@ public class RedSocial implements IRedSocial {
         }
     }
 
+    /**
+     * Metodo que genera un informe con la información obtenida de la
+     * etapa de ordenacion y seleccion
+     */
     public void informe() {
 
-        int tam,i=1;
+        int tam, i = 1;
         double porcentaje;
 
         if (grusSeleccionados.size() == 1) { // CASO: No se necesitan relaciones nuevas
             tam = grusSeleccionados.get(0).size();
-            porcentaje = (double) tam/numUsuarios() *100;
+            porcentaje = (double) tam / numUsuarios() * 100;
             porcentaje = Math.round(porcentaje * 100.0) / 100.0; // redondea a dos decimales
             System.out.println("El mayor grumo contiene " + tam + " usuarios (" + porcentaje + "%)");
             System.out.println("No son necesarias nuevas relaciones de amistad");
@@ -150,7 +211,7 @@ public class RedSocial implements IRedSocial {
 
             for (ArrayList<Integer> grumo : grusSeleccionados) {
                 tam = grumo.size();
-                porcentaje = (double) tam/numUsuarios() *100;
+                porcentaje = (double) tam / numUsuarios() * 100;
                 porcentaje = Math.round(porcentaje * 100.0) / 100.0; // redondea a dos decimales
                 System.out.println("#" + (i) + ": " + tam + " usuarios (" + porcentaje + "%)");
                 i++;
@@ -163,6 +224,16 @@ public class RedSocial implements IRedSocial {
         }
     }
 
+    /**
+     * Metodo que obtiene los grumos de la red social utilizando el algoritmo de
+     * busqueda en profundidad
+     * tomando como parametros un usuario inicial, la lista de conexiones y el grumo
+     * 
+     * @param usuario usuario inicial
+     * @param red     lista de conexiones
+     * @param grumo   grumo donde se van almacenando los usuarios pertenecientes a
+     *                el
+     */
     private void uber_amigos(int usuario, ArrayList<Conexion> red, ArrayList<Integer> grumo) {
 
         int amigo, u1, u2;
@@ -187,43 +258,48 @@ public class RedSocial implements IRedSocial {
 
     /**
      * Genera un caso de prueba
-     * @param n Tamaño (número de usuarios) del caso de prueba
-     * @param rnd   Generador de números aleatorios usado
-     * @return  Una lista de conexiones de amistad
+     * 
+     * @param n   Tamaño (número de usuarios) del caso de prueba
+     * @param rnd Generador de números aleatorios usado
+     * @return Una lista de conexiones de amistad
      */
     public static List<Conexion> generaCaso(int n, Random rnd) {
         // Generar identificadores de usuarios
         HashSet<Integer> husr = new HashSet<>();
-        while(husr.size() < n) { husr.add(rnd.nextInt(90000000)+1000000); }
+        while (husr.size() < n) {
+            husr.add(rnd.nextInt(90000000) + 1000000);
+        }
         final Integer[] usr = husr.toArray(new Integer[0]);
         // Generar √n grumos usando rangos de índices de usuarios
         int[] inds = rnd.ints((int) Math.sqrt(n))
-                        .map(i -> Math.abs(i) % (n-1) + 1)
-                        .sorted()
-                        .distinct()
-                        .toArray();
-        inds[inds.length-1] = n;
+                .map(i -> Math.abs(i) % (n - 1) + 1)
+                .sorted()
+                .distinct()
+                .toArray();
+        inds[inds.length - 1] = n;
         // Añadir las conexiones de los grumos
         HashSet<Conexion> red = new HashSet<>();
         int i0 = 0;
-        for(int i1: inds) { // Rango [i0,i1)
+        for (int i1 : inds) { // Rango [i0,i1)
             // Conexiones circulares
-            red.addAll(IntStream.range(i0, i1-1)
-                                .mapToObj(i -> {
-                return new Conexion(usr[i], usr[i+1]);
-            })
-                                .collect(Collectors.toList()));
-            red.add(new Conexion(usr[i1-1],usr[i0]));
+            red.addAll(IntStream.range(i0, i1 - 1)
+                    .mapToObj(i -> {
+                        return new Conexion(usr[i], usr[i + 1]);
+                    })
+                    .collect(Collectors.toList()));
+            red.add(new Conexion(usr[i1 - 1], usr[i0]));
             // Conexiones al azar
-            int ng = 2*(i1-i0);
-            for(int k = 0; k < ng; k++) {
-                int u1 = rnd.nextInt(i1-i0)+i0;
-                int u2 = rnd.nextInt(i1-i0)+i0;
-                if(u1 != u2) { red.add(new Conexion(usr[u1], usr[u2])); }
+            int ng = 2 * (i1 - i0);
+            for (int k = 0; k < ng; k++) {
+                int u1 = rnd.nextInt(i1 - i0) + i0;
+                int u2 = rnd.nextInt(i1 - i0) + i0;
+                if (u1 != u2) {
+                    red.add(new Conexion(usr[u1], usr[u2]));
+                }
             }
             i0 = i1;
         }
         return red.stream().collect(Collectors.toList());
-    } 
+    }
 
 }

@@ -1,6 +1,9 @@
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * Clase de ejecución Main para el algoritmo de la practica
+ */
 public class Main {
     public static void main(String[] args) throws IOException {
         long inicio, fin;
@@ -14,14 +17,14 @@ public class Main {
         nomfich = in.nextLine();
 
         inicio = System.nanoTime();
-        Y.leeFichero("practica1/" + nomfich);
+        Y.leeFichero(nomfich);
         fin = System.nanoTime();
         t1 = (fin - inicio) / 1000000000.0;
 
         System.out.print("Fichero de nuevas conexiones (pulse enter si no existe): "); // Solicitamos fichero extra
         extra = in.nextLine();
         if (!extra.equals("")) {
-            Y.leeFichero("practica1/" + extra);
+            Y.leeFichero(extra);
         }
 
         System.out.print("Porcentaje mayor tamano grumo: ");

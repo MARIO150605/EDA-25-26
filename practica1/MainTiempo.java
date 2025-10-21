@@ -5,15 +5,20 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Clase de ejecucion Main para la toma de diferente tiempos del algoritmo
+ * en función de varias entradas con un incremento hasta un valor final
+ */
 public class MainTiempo {
 
-    static final int Nrep = 10, Ninc = 2500, Nfin = 30000;
+    static final int Nrep = 10, Ninc = 2500, Nfin = 20000;
     static final Random RND = new Random();
     public static void main(String[] args) throws IOException{
         double pmin,t2=0,t3=0,t4=0, tTotal;
         double promedio2, promedio3, promedio4;
         int Ninicio = 5000;
+        List<Conexion> generador;
+
         while(Ninicio<=Nfin){
             System.out.println("Entrada: "+Ninicio);
             for(int i=0;i<Nrep;i++){
@@ -22,7 +27,7 @@ public class MainTiempo {
                 
                 RedSocial Y = new RedSocial();
             
-                List<Conexion> generador = Y.generaCaso(Ninicio, RND);
+                generador = Y.generaCaso(Ninicio, RND);
                 Y.setRed(generador);
                 pmin = 90;
 

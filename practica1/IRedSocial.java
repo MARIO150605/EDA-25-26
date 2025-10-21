@@ -1,6 +1,9 @@
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * Interfaz de RedSocial
+ */
 public interface IRedSocial {
 
     public int numUsuarios();
