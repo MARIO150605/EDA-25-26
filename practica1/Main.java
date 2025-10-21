@@ -1,6 +1,14 @@
 import java.io.IOException;
 import java.util.*;
 
+/*
+ * Estructuras de Datos y Algoritmos 
+ * Practica 1 
+ * 
+ * Mario San José de Prado (K7)
+ * Abel López Santiago (K7)
+ */
+
 /**
  * Clase de ejecución Main para el algoritmo de la practica
  */
@@ -54,7 +62,7 @@ public class Main {
         System.out.println(Y.numUsuarios() + " usuarios, " + Y.numConexiones() + " conexiones");
         System.out.println("Existen " + Y.numGrumos() + " grumos.");
 
-        Y.salvaNuevasRel("practica1/extra.txt");
+        Y.salvaNuevasRel("extra.txt");
         Y.informe();
 
         in.close();
