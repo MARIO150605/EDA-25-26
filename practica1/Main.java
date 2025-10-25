@@ -27,7 +27,7 @@ public class Main {
         inicio = System.nanoTime();
         Y.leeFichero(nomfich);
         fin = System.nanoTime();
-        t1 = (fin - inicio) / 1000000000.0;
+        t1 = (fin - inicio) / 1000000000.0; // tiempo de lectura de fichero (seg)
 
         System.out.print("Fichero de nuevas conexiones (pulse enter si no existe): "); // Solicitamos fichero extra
         extra = in.nextLine();
@@ -40,23 +40,22 @@ public class Main {
 
         System.out.println("Lectura fichero: " + t1);
 
-        // nuevos tiempos
         inicio = System.nanoTime();
         Y.creaUsuarios();
         fin = System.nanoTime();
-        t2 = (fin - inicio) / 1000000000.0;
-        System.out.println("Creacion lista usuarios: " + t2);
+        t2 = (fin - inicio) / 1000000000.0; // tiempo de creacion de lista de usuarios (seg)
+        System.out.println("Creacion lista usuarios: " + t2); 
 
         inicio = System.nanoTime();
         Y.creaGrumos();
         fin = System.nanoTime();
-        t3 = (fin - inicio) / 1000000000.0;
+        t3 = (fin - inicio) / 1000000000.0; // tiempo de creacion de lista de grumos (seg)
         System.out.println("Creacion lista grumos: " + t3);
 
         inicio = System.nanoTime();
         Y.ordenaSelecciona(pmin);
         fin = System.nanoTime();
-        t4 = (fin - inicio) / 1000000000.0;
+        t4 = (fin - inicio) / 1000000000.0; // tiempo de ordenaccion y seleccion de grumos (seg)
         System.out.println("Ordenacion y seleccion de grumos: " + t4);
 
         System.out.println(Y.numUsuarios() + " usuarios, " + Y.numConexiones() + " conexiones");

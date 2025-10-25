@@ -289,11 +289,12 @@ public class RedSocial implements IRedSocial {
         HashSet<Conexion> red = new HashSet<>();
         int i0 = 0;
         for (int i1 : inds) { // Rango [i0,i1)
+            if (i1 < i0 + 2) {
+                continue;
+            } // No se actualiza i0 aposta.
             // Conexiones circulares
             red.addAll(IntStream.range(i0, i1 - 1)
-                    .mapToObj(i -> {
-                        return new Conexion(usr[i], usr[i + 1]);
-                    })
+                    .mapToObj(i -> new Conexion(usr[i], usr[i + 1]))
                     .collect(Collectors.toList()));
             red.add(new Conexion(usr[i1 - 1], usr[i0]));
             // Conexiones al azar
