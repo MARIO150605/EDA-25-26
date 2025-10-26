@@ -146,21 +146,18 @@ public class RedSocial implements IRedSocial {
 
         int acumulado = 0;
         double porcentaje;
-        boolean superado = false;
         int u1, u2;
 
         grus.sort((l1, l2) -> l2.size() - l1.size()); // ordena los grumos de mayor a menor tamano
 
         for (ArrayList<Integer> grumo : grus) {
-            if (!superado) {
 
-                acumulado += grumo.size();
-                porcentaje = (double) acumulado / numUsuarios() * 100.0;
-                grusSeleccionados.add(grumo);
+            acumulado += grumo.size();
+            porcentaje = (double) acumulado / numUsuarios() * 100.0;
+            grusSeleccionados.add(grumo);
 
-                if (porcentaje >= pmin) {
-                    superado = true;
-                }
+            if (porcentaje >= pmin) {
+                break;
             }
         }
 

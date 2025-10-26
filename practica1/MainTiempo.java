@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class MainTiempo {
 
-    static final int Nrep = 3, Ninc = 5000, Nfin = 150000;
+    static int Nrep = 10, Ninc = 5000, Nfin = 200000;
     static final Random RND = new Random();
 
     public static void main(String[] args) throws IOException {
@@ -29,9 +29,9 @@ public class MainTiempo {
 
         while (Ninicio <= Nfin) {
             // inicializar los tiempos para cada nueva entrada
-            t2=0;
-            t3=0;
-            t4=0;
+            t2 = 0;
+            t3 = 0;
+            t4 = 0;
             System.out.println("Entrada: " + Ninicio);
             for (int i = 0; i < Nrep; i++) {
 
@@ -74,6 +74,13 @@ public class MainTiempo {
 
             tTotal = promedio2 + promedio3 + promedio4;
             System.out.println("Tiempo total: " + tTotal);
+            if(Ninicio == 80000){
+                Nrep=6; // cambio de nº repes al 80k
+            }
+            if(Ninicio == 100000){
+                Nrep=3; // cambio de nº repes al 100k 
+                Ninc=15000; // cambio de incrementos al 100k
+            }
             Ninicio += Ninc;
         }
     }
