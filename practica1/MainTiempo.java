@@ -24,6 +24,7 @@ public class MainTiempo {
     public static void main(String[] args) throws IOException {
         double pmin, t2, t3, t4, tTotal;
         double promedio2, promedio3, promedio4;
+        int promedioConexiones, promedioGrumos, conexiones, grumos;
         int Ninicio = 5000;
         List<Conexion> generador;
 
@@ -32,7 +33,9 @@ public class MainTiempo {
             t2 = 0;
             t3 = 0;
             t4 = 0;
-            System.out.println("Entrada: " + Ninicio);
+            conexiones = 0;
+            grumos = 0;
+            System.out.println("Numero de usuarios: " + Ninicio);
             for (int i = 0; i < Nrep; i++) {
 
                 long inicio, fin;
@@ -48,10 +51,14 @@ public class MainTiempo {
                 fin = System.nanoTime();
                 t2 += (fin - inicio) / 1000000000.0; // tiempo de creacion de lista de usuarios
 
+                conexiones += Y.numConexiones();
+
                 inicio = System.nanoTime();
                 Y.creaGrumos();
                 fin = System.nanoTime();
                 t3 += (fin - inicio) / 1000000000.0; // tiempo de creacion de lista de grumos
+
+                grumos += Y.numGrumos();
 
                 inicio = System.nanoTime();
                 Y.ordenaSelecciona(pmin);
@@ -62,6 +69,10 @@ public class MainTiempo {
             }
 
             System.out.println();
+
+            promedioGrumos = grumos / Nrep;
+            promedioConexiones = conexiones / Nrep;
+            System.out.println("Promedio de conexiones: " + promedioConexiones + " Promedio de grumos: " + promedioGrumos);
 
             promedio2 = t2 / Nrep;
             System.out.println("Promedio de tiempo etapa 2(creacion de usuarios): " + promedio2);
@@ -74,12 +85,9 @@ public class MainTiempo {
 
             tTotal = promedio2 + promedio3 + promedio4;
             System.out.println("Tiempo total: " + tTotal);
-            if(Ninicio == 80000){
-                Nrep=6; // cambio de nº repes al 80k
-            }
-            if(Ninicio == 100000){
-                Nrep=3; // cambio de nº repes al 100k 
-                Ninc=15000; // cambio de incrementos al 100k
+            if (Ninicio == 100000) {
+                Nrep = 3; // cambio de nº repes al 100k
+                Ninc = 15000; // cambio de incrementos al 100k
             }
             Ninicio += Ninc;
         }
