@@ -12,26 +12,27 @@
 public class DisjointSet {
 
     private int[] padre; // padre de cada nodo
-    private int[] rango; // altura de cada arbol
-    private int[] tam; // tamaño del conjunto representado
+    private int[] altura; // altura de cada arbol
+    //private int[] tam; // tamaño del conjunto representado
     private int[] idRepresentante; // id del padre representante de cada grumo
     private int next; // siguiente pos libre en array
 
     public DisjointSet(int capacidad) {
         this.padre = new int[capacidad];
-        this.rango = new int[capacidad];
-        this.tam = new int[capacidad];
+        this.altura = new int[capacidad];
+        //this.tam = new int[capacidad];
         this.idRepresentante = new int[capacidad];
         this.next = 0;
     }
 
     /**
      * Getter del tamaño del conjunto
-     */
+     
     public int getTam(int i) {
         int raiz = find(i);
         return tam[raiz];
     }
+    */
 
     /**
      * Getter de la id real del usuario representante del grumo
@@ -44,7 +45,7 @@ public class DisjointSet {
     /**
      * Devuelve el numero de nodos agregados en total.
      */
-    public int numNodos() {
+    public int getNumNodos() {
         return next;
     }
 
@@ -75,19 +76,19 @@ public class DisjointSet {
             return;
         }
 
-        // decidimos que arbol se une a cual mediante su rango
-        if (rango[raizA] < rango[raizB]) { // A se cuelga de B
+        // decidimos que arbol se une a cual mediante su altura
+        if (altura[raizA] < altura[raizB]) { // A se cuelga de B
             padre[raizA] = raizB;
-            tam[raizB] += tam[raizA];
+            //tam[raizB] += tam[raizA];
 
-        } else if (rango[raizA] > rango[raizB]) { // B se cuelga de A
+        } else if (altura[raizA] > altura[raizB]) { // B se cuelga de A
             padre[raizB] = raizA;
-            tam[raizA] += tam[raizB];
+            //tam[raizA] += tam[raizB];
 
-        } else { // caso mismo rango: elegimos B se cuelga de A
+        } else { // caso misma altura: elegimos B se cuelga de A
             padre[raizB] = raizA;
-            tam[raizA]++;
-            tam[raizA] += tam[raizB];
+            altura[raizA]++;
+            //tam[raizA] += tam[raizB];
 
         }
     }
@@ -98,14 +99,14 @@ public class DisjointSet {
      * Este se inicializa como un elemento independiente .
      * 
      * @param idUsuario : id real del usuario
-     * @return indice inerno asignado al usuario
+     * @return indice interno asignado al usuario
      */
     public int agregar(int idUsuario) {
         int x = next;
 
         padre[x] = x;
-        rango[x] = 0;
-        tam[x] = 1;
+        altura[x] = 0;
+        //tam[x] = 1;
         idRepresentante[x] = idUsuario;
 
         next++;
