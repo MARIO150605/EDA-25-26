@@ -7,14 +7,6 @@ public class DisjointSetAux {
     private DisjointSet ds;
     private Map<Integer, ArrayList<Integer>> grumos; // raiz y grumo asociado
 
-    public int getNumUsuarios() {
-        return usuarios.size();
-    }
-
-    public int getNumGrumos() {
-        return grumos.size();
-    }
-
     public DisjointSetAux(ArrayList<Conexion> conexiones) {
         mapeo = new HashMap<>();
         mapeoInverso = new HashMap<>();
@@ -35,6 +27,14 @@ public class DisjointSetAux {
             id2 = mapeo.get(c.getc2());
             ds.union(id1, id2);
         }
+    }
+
+     public int getNumUsuarios() {
+        return usuarios.size();
+    }
+
+    public int getNumGrumos() {
+        return grumos.size();
     }
 
     public void crearUsuarios(ArrayList<Conexion> conexiones) {
