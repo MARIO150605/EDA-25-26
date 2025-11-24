@@ -9,107 +9,55 @@
 /**
  * Clase de la estructura Disjoint Set (o Union-find).
  */
+
 public class DisjointSet {
+    private int[] padre;
+    private int[] altura;
 
-    private int[] padre; // padre de cada nodo
-    private int[] altura; // altura de cada arbol
-    //private int[] tam; // tamaño del conjunto representado
-    private int[] idRepresentante; // id del padre representante de cada grumo
-    private int next; // siguiente pos libre en array
+    public DisjointSet(int n) {
+        padre = new int[n];
+        altura = new int[n];
 
-    public DisjointSet(int capacidad) {
-        this.padre = new int[capacidad];
-        this.altura = new int[capacidad];
-        //this.tam = new int[capacidad];
-        this.idRepresentante = new int[capacidad];
-        this.next = 0;
-    }
+        for (int i = 0; i < n; i++) {
+            padre[i] = i;
+            altura[i] = 0;
 
-    /**
-     * Getter del tamaño del conjunto
-     
-    public int getTam(int i) {
-        int raiz = find(i);
-        return tam[raiz];
-    }
-    */
-
-    /**
-     * Getter de la id real del usuario representante del grumo
-     */
-    public int getIdRepresentante(int i) {
-        int raiz = find(i);
-        return idRepresentante[raiz];
-    }
-
-    /**
-     * Devuelve el numero de nodos agregados en total.
-     */
-    public int getNumNodos() {
-        return next;
-    }
-
-    /**
-     * Busca la raiz del conjunto al que pertenece i.
-     * 
-     * @param i : indice del nodo
-     * @return raiz (representante del conjunto)
-     */
-    public int find(int i) {
-        if (padre[i] != i) {
-            padre[i] = find(padre[i]);
         }
-        return padre[i];
     }
 
-    /**
-     * Une los conjuntos a los que pertenecen los nodos iA y iB.
-     * 
-     * @param iA : indice nodo 1
-     * @param iB : indice nodo 2
-     */
-    public void union(int iA, int iB) {
-        int raizA = find(iA);
-        int raizB = find(iB);
+    public int find(int x) {
+        if (padre[x] != x) {
+            padre[x] = find(padre[x]);
+        }
 
-        if (raizA == raizB) { // comprueba si pertenecen al mismo nodo
+        return padre[x];
+    }
+
+    public void union(int x, int y) {
+        int raizx = find(x);
+        int raizy = find(y);
+
+        if (raizx == raizy) {
             return;
         }
 
-        // decidimos que arbol se une a cual mediante su altura
-        if (altura[raizA] < altura[raizB]) { // A se cuelga de B
-            padre[raizA] = raizB;
-            //tam[raizB] += tam[raizA];
-
-        } else if (altura[raizA] > altura[raizB]) { // B se cuelga de A
-            padre[raizB] = raizA;
-            //tam[raizA] += tam[raizB];
-
-        } else { // caso misma altura: elegimos B se cuelga de A
-            padre[raizB] = raizA;
-            altura[raizA]++;
-            //tam[raizA] += tam[raizB];
-
+        if (altura[raizx] < altura[raizy]) {
+            padre[raizx] = raizy;
+        } else if (altura[raizx] > altura[raizy]) {
+            padre[raizy] = raizx;
+        } else {
+            padre[raizy] = raizx;
+            altura[raizx]++;
         }
     }
 
-    /**
-     * Agrega un nuevo usuario al conjunto asignandole un
-     * indice interno consecutivo a los del array de la estructura.
-     * Este se inicializa como un elemento independiente .
-     * 
-     * @param idUsuario : id real del usuario
-     * @return indice interno asignado al usuario
-     */
-    public int agregar(int idUsuario) {
-        int x = next;
+    public boolean connected(int x, int y) {
+        return find(x) == find(y);
+    }
 
-        padre[x] = x;
-        altura[x] = 0;
-        //tam[x] = 1;
-        idRepresentante[x] = idUsuario;
-
-        next++;
-        return x;
+    public void printPadres() {
+        for (int i = 0; i < padre.length; i++) {
+            System.out.println(i + " padre -> " + padre[i] + " altura: " + altura[i]);
+        }
     }
 }
