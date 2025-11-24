@@ -182,6 +182,15 @@ public class RedSocialP2 implements IRedSocialP2 {
         }
     }
 
+    public void grumosYUsuarios() {
+        dsa = new DisjointSetAux(red);
+        dsa.crearGrumos();
+    }
+
+    public ArrayList<ArrayList<Integer>> getGrumos() {
+        return dsa.crearGrumos();
+    }
+
     /**
      * Genera un caso de prueba
      * 
@@ -191,11 +200,17 @@ public class RedSocialP2 implements IRedSocialP2 {
      */
     public static List<Conexion> generaCaso(int n, Random rnd) {
         // Generar identificadores de usuarios
-        HashSet<Integer> husr = new HashSet<>();
-        while (husr.size() < n) {
-            husr.add(rnd.nextInt(90000000) + 1000000);
+        int[] usr = new int[n];
+        for (int i = 0; i < n; i++) {
+            usr[i] = i + 10000000;
         }
-        final Integer[] usr = husr.toArray(new Integer[0]);
+        // Algoritmo de Fisher-Yates (shuffle)
+        for (int i = n - 1; i > 0; i--) {
+            int j = rnd.nextInt(i + 1);
+            int tmp = usr[j];
+            usr[j] = usr[i];
+            usr[i] = tmp;
+        }
         // Generar √n grumos usando rangos de índices de usuarios
         int[] inds = rnd.ints((int) Math.sqrt(n))
                 .map(i -> Math.abs(i) % (n - 1) + 1)
@@ -204,6 +219,7 @@ public class RedSocialP2 implements IRedSocialP2 {
                 .toArray();
         inds[inds.length - 1] = n;
         // Añadir las conexiones de los grumos
+        // Añadir las conexiones de los grumos
         HashSet<Conexion> red = new HashSet<>();
         int i0 = 0;
         for (int i1 : inds) { // Rango [i0,i1)
@@ -211,9 +227,9 @@ public class RedSocialP2 implements IRedSocialP2 {
                 continue;
             } // No se actualiza i0 aposta.
               // Conexiones circulares
-            red.addAll(IntStream.range(i0, i1 - 1)
-                    .mapToObj(i -> new Conexion(usr[i], usr[i + 1]))
-                    .collect(Collectors.toList()));
+            for (int i = i0; i < i1 - 1; i++) {
+                red.add(new Conexion(usr[i], usr[i + 1]));
+            }
             red.add(new Conexion(usr[i1 - 1], usr[i0]));
             // Conexiones al azar
             int ng = 2 * (i1 - i0);
@@ -227,15 +243,6 @@ public class RedSocialP2 implements IRedSocialP2 {
             i0 = i1;
         }
         return red.stream().collect(Collectors.toList());
-    }
-
-    public void grumosYUsuarios() {
-        dsa = new DisjointSetAux(red);
-        dsa.crearGrumos();
-    }
-
-    public ArrayList<ArrayList<Integer>> getGrumos(){
-        return dsa.crearGrumos();
     }
 
 }
