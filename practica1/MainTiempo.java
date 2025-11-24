@@ -41,7 +41,7 @@ public class MainTiempo {
 
                 long inicio, fin;
 
-                RedSocial Y = new RedSocial();
+                RedSocialP2 Y = new RedSocialP2();
 
                 generador = Y.generaCaso(Ninicio, RND);
                 Y.setRed(generador);

@@ -14,7 +14,7 @@ import java.util.stream.IntStream;
 /**
  * Clase que implementa la interfaz IRedSocial
  */
-public class RedSocial implements IRedSocial {
+public class RedSocial implements IRedSocialP2 {
 
     ArrayList<Conexion> red = new ArrayList<>();
     ArrayList<Integer> usr = new ArrayList<>();

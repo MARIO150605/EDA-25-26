@@ -44,7 +44,7 @@ public class Main {
         Y.creaUsuarios();
         fin = System.nanoTime();
         t2 = (fin - inicio) / 1000000000.0; // tiempo de creacion de lista de usuarios (seg)
-        System.out.println("Creacion lista usuarios: " + t2); 
+        System.out.println("Creacion lista usuarios: " + t2);
 
         inicio = System.nanoTime();
         Y.creaGrumos();
