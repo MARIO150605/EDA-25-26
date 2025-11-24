@@ -3,16 +3,11 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-/*
- * Estructuras de Datos y Algoritmos 
- * Practica 1 
- * 
- * Mario San José de Prado (K7)
- * Abel López Santiago (K7)
- */
-
 /**
  * Clase que implementa la interfaz IRedSocial
+ * 
+ * @author Mario San José de Prado (K7)
+ * @author Abel López Santiago (K7)
  */
 public class RedSocialP2 implements IRedSocialP2 {
 

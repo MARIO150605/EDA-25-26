@@ -1,16 +1,11 @@
 import java.io.IOException;
 import java.util.*;
 
-/*
- * Estructuras de Datos y Algoritmos 
- * Practica 1 
- * 
- * Mario San José de Prado (K7)
- * Abel López Santiago (K7)
- */
-
 /**
  * Interfaz de RedSocial
+ * 
+ * @author Mario San José de Prado (K7)
+ * @author Abel López Santiago (K7)
  */
 public interface IRedSocialP2 {
 

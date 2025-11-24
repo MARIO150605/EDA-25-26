@@ -1,5 +1,12 @@
 import java.util.*;
 
+/**
+ * Clase auxiliar para el mapeo entre los ids reales y los necesearios en
+ * DisjointSet.
+ * 
+ * @author Mario San José de Prado (K7)
+ * @author Abel López Santiago (K7)
+ */
 public class DisjointSetAux {
     private Map<Integer, Integer> mapeo; // nodo -> id
     private Map<Integer, Integer> mapeoInverso; // id -> nodo
@@ -7,6 +14,12 @@ public class DisjointSetAux {
     private DisjointSet ds;
     private Map<Integer, ArrayList<Integer>> grumos; // raiz y grumo asociado
 
+    /**
+     * Constructor de la estructura auxiliar a partir de la lista de conexiones de
+     * la red social.
+     * 
+     * @param conexiones <- Lista de conexiones existentes entre usuarios
+     */
     public DisjointSetAux(ArrayList<Conexion> conexiones) {
         mapeo = new HashMap<>();
         mapeoInverso = new HashMap<>();
@@ -29,14 +42,30 @@ public class DisjointSetAux {
         }
     }
 
-     public int getNumUsuarios() {
+    /**
+     * Devuelve el numero total de usuarios ocupados
+     * 
+     * @return Numero de usuarios unicos
+     */
+    public int getNumUsuarios() {
         return usuarios.size();
     }
 
+    /**
+     * Devuelve el numero total de grumos detectados
+     * 
+     * @return Numero de grumos
+     */
     public int getNumGrumos() {
         return grumos.size();
     }
 
+    /**
+     * Almacena los usuarios de la lista conexiones en la estructura interna
+     * usuarios
+     * 
+     * @param conexiones <- Lista de conexiones entre usuarios
+     */
     public void crearUsuarios(ArrayList<Conexion> conexiones) {
         usuarios = new HashSet<>();
         for (Conexion c : conexiones) {
@@ -45,6 +74,11 @@ public class DisjointSetAux {
         }
     }
 
+    /**
+     * Crea todos los grumos usando la estructura DisjointSet.
+     * 
+     * @return
+     */
     public ArrayList<ArrayList<Integer>> crearGrumos() {
         int id, raiz;
         grumos = new HashMap<>();

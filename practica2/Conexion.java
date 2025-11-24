@@ -1,14 +1,8 @@
-
-/*
- * Estructuras de Datos y Algoritmos 
- * Practica 2 
- * 
- * Mario San José de Prado (K7)
- * Abel López Santiago (K7)
- */
-
 /**
  * Clase que representa una conexion de la red social
+ * 
+ * @author Mario San José de Prado (K7)
+ * @author Abel López Santiago (K7)
  */
 public class Conexion {
 
