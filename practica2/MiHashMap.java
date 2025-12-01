@@ -1,4 +1,7 @@
 // Tabla de dispersión abierta que almacena pares clave-valor
+
+import java.util.ArrayList;
+
 public class MiHashMap<K, V> {
 
     // Clase interna que representa un
@@ -109,4 +112,54 @@ public class MiHashMap<K, V> {
         n--;
         return true;
     }
+
+    // --------- Metodos mapa -------------
+
+    public int size() {
+        return n;
+    }
+
+    public ArrayList<K> keySet() {
+        ArrayList<K> res = new ArrayList<>();
+
+        for (int i = 0; i < m; i++) {
+            Nodo<K, V> nodo = tabla[i];
+
+            while (nodo != null) {
+                res.add(nodo.clave);
+                nodo = nodo.sig;
+            }
+
+        }
+
+        return res;
+    }
+
+    public ArrayList<V> values() {
+        ArrayList<V> res = new ArrayList<>();
+
+        for (int i = 0; i < m; i++) {
+            Nodo<K, V> nodo = tabla[i];
+
+            while (nodo != null) {
+                res.add(nodo.valor);
+                nodo = nodo.sig;
+            }
+
+        }
+
+        return res;
+    }
+
+    public boolean containsKey(K clave) {
+        // Aplicar función de dispersión a la clave
+        int i = indice(clave);
+        // Buscar en la lista i-ésima
+        Nodo<K, V> p = tabla[i];
+        while (p != null && !p.clave.equals(clave)) {
+            p = p.sig;
+        }
+        return (p == null) ? false : true;
+    }
+
 }

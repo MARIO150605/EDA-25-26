@@ -1,4 +1,7 @@
-// Tabla de dispersión abierta que almacena pares clave-valor
+// Tabla de dispersión abierta que almacena claves
+
+import java.util.ArrayList;
+
 public class MiHashSet<K> {
 
     // Clase interna que representa un
@@ -62,7 +65,7 @@ public class MiHashSet<K> {
         }
     }
 
-    public K get(K clave) {
+    public boolean contains(K clave) {
         // Aplicar función de dispersión a la clave
         int i = indice(clave);
         // Buscar en la lista i-ésima
@@ -70,11 +73,16 @@ public class MiHashSet<K> {
         while (p != null && !p.clave.equals(clave)) {
             p = p.sig;
         }
-        return (p == null) ? null : p.clave;
+        return (p == null) ? false : true;
     }
 
-    public void ins(K clave) {
+    public boolean ins(K clave) {
         // Incrementar n y comprobar factor de carga
+
+        if (contains(clave)) {
+            return false;
+        }
+
         n++;
         if ((1.0 * n) / m > maxL) {
             reestructurar();
@@ -82,7 +90,9 @@ public class MiHashSet<K> {
         // Aplicar función de dispersión a la clave
         int i = indice(clave);
         // Insertar al principio de la lista i-ésima
-        tabla[i] = new Nodo(clave,tabla[i]);
+        tabla[i] = new Nodo(clave, tabla[i]);
+
+        return true;
     }
 
     public boolean del(K clave) {
@@ -106,5 +116,27 @@ public class MiHashSet<K> {
         }
         n--;
         return true;
+    }
+
+    // ------------- Metodos conjunto ------
+
+    public int size() {
+        return n;
+    }
+
+    public ArrayList<K> keySet() {
+        ArrayList<K> res = new ArrayList<>();
+
+        for (int i = 0; i < m; i++) {
+            Nodo<K> nodo = tabla[i];
+
+            while (nodo != null) {
+                res.add(nodo.clave);
+                nodo = nodo.sig;
+            }
+
+        }
+
+        return res;
     }
 }
