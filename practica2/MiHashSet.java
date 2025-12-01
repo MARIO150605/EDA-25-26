@@ -1,11 +1,14 @@
-// Tabla de dispersión abierta que almacena claves
-
 import java.util.ArrayList;
 
+/**
+ * Implementacion de un conjunto basado en tabla hash con dispersion abierta
+ * 
+ * @author Mario San José de Prado (K7)
+ * @author Abel López Santiago (K7)
+ */
 public class MiHashSet<K> {
 
-    // Clase interna que representa un
-    // nodo de una lista simplemente enlazada
+    // Clase interna que representa un nodo de una lista simplemente enlazada
     private class Nodo<K> {
         K clave;
         Nodo<K> sig;
@@ -17,19 +20,25 @@ public class MiHashSet<K> {
     }
 
     int m; // Capacidad de la tabla
-    int n; // Número de elementos
-    double maxL; // Máximo factor de carga
+    int n; // Numero de elementos
+    double maxL; // Maximo factor de carga
 
     // Tabla de dispersión (array de listas de pares)
     Nodo<K>[] tabla;
 
-    // Constructor con valores por defecto
+    /**
+     * Constructor de un mapa con capacidad y factor de carga predefinidos
+     */
     public MiHashSet() {
         this(16, 2.5);
     }
 
-    // Constructor: m0 - capacidad inicial
-    // maxL - factor de carga máximo
+    /**
+     * Constructor de un mapa con capacidad y factor de carga dados.
+     * 
+     * @param m0   - capacidad inicial
+     * @param maxL - factor de carga maximo
+     */
     public MiHashSet(int m0, double maxL) {
         this.maxL = maxL;
         this.m = m0;
@@ -40,11 +49,19 @@ public class MiHashSet<K> {
         this.n = 0;
     }
 
-    // Devuelve el índice correspondiente a esa clave
+    /**
+     * Devuelve el indice hash para una clave
+     * 
+     * @param c clave
+     * @return indice de la tabla
+     */
     protected int indice(K c) {
         return Math.abs(c.hashCode()) % m;
     }
 
+    /**
+     * Duplica la capacidad de la tabla y reubica los elementos
+     */
     protected void reestructurar() {
         // Salvamos la tabla anterior
         Nodo<K>[] tmp = tabla;
@@ -65,6 +82,12 @@ public class MiHashSet<K> {
         }
     }
 
+    /**
+     * Indica si una clave pertenece al conjunto
+     * 
+     * @param clave
+     * @return true si pertene (false en caso contrario)
+     */
     public boolean contains(K clave) {
         // Aplicar función de dispersión a la clave
         int i = indice(clave);
@@ -76,6 +99,12 @@ public class MiHashSet<K> {
         return (p == null) ? false : true;
     }
 
+    /**
+     * Inserta una clave en un conjunto
+     * 
+     * @param clave
+     * @return true (si ya existe devuelve false)
+     */
     public boolean ins(K clave) {
         // Incrementar n y comprobar factor de carga
 
@@ -95,6 +124,12 @@ public class MiHashSet<K> {
         return true;
     }
 
+    /**
+     * Clave a eliminar
+     * 
+     * @param clave
+     * @return true (si no existe devuelve false)
+     */
     public boolean del(K clave) {
         // Aplicar función de dispersión a la clave
         int i = indice(clave);
@@ -120,11 +155,20 @@ public class MiHashSet<K> {
 
     // ------------- Metodos conjunto ------
 
+    /**
+     * Numero de elementos del conjunto
+     * 
+     * @return tamaño
+     */
     public int size() {
         return n;
     }
 
-    
+    /**
+     * Devuelve todas las claves del conjunto
+     * 
+     * @return arraylist de claves
+     */
     public ArrayList<K> keySet() {
         ArrayList<K> res = new ArrayList<>();
 

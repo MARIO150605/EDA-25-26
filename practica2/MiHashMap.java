@@ -1,11 +1,14 @@
-// Tabla de dispersión abierta que almacena pares clave-valor
-
 import java.util.ArrayList;
 
+/**
+ * Tabla de dispersion abiaerta que almacena pares clave-valor.
+ * 
+ * @author Mario San José de Prado (K7)
+ * @author Abel López Santiago (K7)
+ */
 public class MiHashMap<K, V> {
 
-    // Clase interna que representa un
-    // nodo de una lista simplemente enlazada
+    // Clase interna que representa un nodo de una lista simplemente enlazada
     private class Nodo<K, V> {
         K clave;
         V valor;
@@ -19,19 +22,25 @@ public class MiHashMap<K, V> {
     }
 
     int m; // Capacidad de la tabla
-    int n; // Número de elementos
-    double maxL; // Máximo factor de carga
+    int n; // Numero de elementos
+    double maxL; // Maximo factor de carga
 
     // Tabla de dispersión (array de listas de pares)
     Nodo<K, V>[] tabla;
 
-    // Constructor con valores por defecto
+    /**
+     * Constructor de un mapa con capacidad y factor de carga predefinidos
+     */
     public MiHashMap() {
         this(16, 2.5);
     }
 
-    // Constructor: m0 - capacidad inicial
-    // maxL - factor de carga máximo
+    /**
+     * Constructor de un mapa con capacidad y factor de carga dados.
+     * 
+     * @param m0   - capacidad inicial
+     * @param maxL - factor de carga maximo
+     */
     public MiHashMap(int m0, double maxL) {
         this.maxL = maxL;
         this.m = m0;
@@ -42,11 +51,19 @@ public class MiHashMap<K, V> {
         this.n = 0;
     }
 
-    // Devuelve el índice correspondiente a esa clave
+    /**
+     * Devuelve el indice hash para una clave
+     * 
+     * @param c clave
+     * @return indice de la tabla
+     */
     protected int indice(K c) {
         return Math.abs(c.hashCode()) % m;
     }
 
+    /**
+     * Duplica la capacidad de la tabla y reubica los elementos
+     */
     protected void reestructurar() {
         // Salvamos la tabla anterior
         Nodo<K, V>[] tmp = tabla;
@@ -67,6 +84,12 @@ public class MiHashMap<K, V> {
         }
     }
 
+    /**
+     * Obtiene el valor asociado a una clase
+     * 
+     * @param clave
+     * @return valor (sino existe devuelve null)
+     */
     public V get(K clave) {
         // Aplicar función de dispersión a la clave
         int i = indice(clave);
@@ -78,6 +101,12 @@ public class MiHashMap<K, V> {
         return (p == null) ? null : p.valor;
     }
 
+    /**
+     * Inserta un par clave-valor en la tabla
+     * 
+     * @param clave
+     * @param valor
+     */
     public void ins(K clave, V valor) {
         // Incrementar n y comprobar factor de carga
         n++;
@@ -90,6 +119,12 @@ public class MiHashMap<K, V> {
         tabla[i] = new Nodo(clave, valor, tabla[i]);
     }
 
+    /**
+     * Elimina la entrada asociada a una clave
+     * 
+     * @param clave clave a eliminar
+     * @return true (false si no existe)
+     */
     public boolean del(K clave) {
         // Aplicar función de dispersión a la clave
         int i = indice(clave);
@@ -115,10 +150,20 @@ public class MiHashMap<K, V> {
 
     // --------- Metodos mapa -------------
 
+    /**
+     * Devuelve el numero de elementos
+     * 
+     * @return cantidad pares clave-valor
+     */
     public int size() {
         return n;
     }
 
+    /**
+     * Conjunto de claves contenidas en el mapa
+     * 
+     * @return arraylist con las claves
+     */
     public ArrayList<K> keySet() {
         ArrayList<K> res = new ArrayList<>();
 
@@ -135,6 +180,11 @@ public class MiHashMap<K, V> {
         return res;
     }
 
+    /**
+     * Conjunto de valores contenidos en el mapa
+     * 
+     * @return arraylist con los valores
+     */
     public ArrayList<V> values() {
         ArrayList<V> res = new ArrayList<>();
 
@@ -151,6 +201,12 @@ public class MiHashMap<K, V> {
         return res;
     }
 
+    /**
+     * Indica si la clave esiste
+     * 
+     * @param clave
+     * @return true (false sino existe)
+     */
     public boolean containsKey(K clave) {
         // Aplicar función de dispersión a la clave
         int i = indice(clave);
@@ -161,5 +217,4 @@ public class MiHashMap<K, V> {
         }
         return (p == null) ? false : true;
     }
-
 }

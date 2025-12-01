@@ -9,8 +9,8 @@ import java.util.*;
  */
 public class MainP2 {
     public static void main(String[] args) throws IOException {
-        long inicio, fin;
-        double pmin, t1, t2, t4;
+        long inicio, fin, inicioTotal, finTotal;
+        double pmin, t1, t2, t4, total;
         String nomfich, extra;
         RedSocialP2 Y = new RedSocialP2();
         Scanner in = new Scanner(System.in);
@@ -36,22 +36,26 @@ public class MainP2 {
         System.out.println("Lectura fichero: " + t1);
 
         inicio = System.nanoTime();
+        inicioTotal = System.nanoTime();
         Y.grumosYUsuarios();
         fin = System.nanoTime();
         t2 = (fin - inicio) / 1000000000.0; // tiempo de creacion de lista de usuarios (seg)
-        System.out.println("Creacion lista usuarios y grumos: " + t2); 
+        System.out.println("Creacion lista usuarios y grumos: " + t2);
 
         inicio = System.nanoTime();
         Y.ordenaSelecciona(pmin);
         fin = System.nanoTime();
+        finTotal = System.nanoTime();
+        total = (finTotal - inicioTotal) / 1000000000.0;
         t4 = (fin - inicio) / 1000000000.0; // tiempo de ordenaccion y seleccion de grumos (seg)
         System.out.println("Ordenacion y seleccion de grumos: " + t4);
+        System.out.println("Tiempo total practica2: " + total);
 
         System.out.println(Y.numUsuarios() + " usuarios, " + Y.numConexiones() + " conexiones");
         System.out.println("Existen " + Y.numGrumos() + " grumos.");
 
         Y.salvaNuevasRel("extra.txt");
-        //Y.informe();
+        // Y.informe();
 
         in.close();
     }
