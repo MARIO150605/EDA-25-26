@@ -51,7 +51,7 @@ public class MainP2 {
         System.out.println("Existen " + Y.numGrumos() + " grumos.");
 
         Y.salvaNuevasRel("extra.txt");
-        Y.informe();
+        //Y.informe();
 
         in.close();
     }

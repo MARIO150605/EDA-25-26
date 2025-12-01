@@ -8,11 +8,11 @@ import java.util.*;
  * @author Abel López Santiago (K7)
  */
 public class DisjointSetAux {
-    private Map<Integer, Integer> mapeo; // nodo -> id
-    private Map<Integer, Integer> mapeoInverso; // id -> nodo
-    private Set<Integer> usuarios;
+    private MiHashMap<Integer, Integer> mapeo; // nodo -> id
+    private MiHashMap<Integer, Integer> mapeoInverso; // id -> nodo
+    private MiHashSet<Integer> usuarios;
     private DisjointSet ds;
-    private Map<Integer, ArrayList<Integer>> grumos; // raiz y grumo asociado
+    private MiHashMap<Integer, ArrayList<Integer>> grumos; // raiz y grumo asociado
 
     /**
      * Constructor de la estructura auxiliar a partir de la lista de conexiones de
@@ -21,15 +21,16 @@ public class DisjointSetAux {
      * @param conexiones <- Lista de conexiones existentes entre usuarios
      */
     public DisjointSetAux(ArrayList<Conexion> conexiones) {
-        mapeo = new HashMap<>();
-        mapeoInverso = new HashMap<>();
 
         crearUsuarios(conexiones);
 
+        mapeo = new MiHashMap<>(usuarios.size(), 2.5); // factor de carga 2.5 por defecto
+        mapeoInverso = new MiHashMap<>(usuarios.size(), 2.5);
+
         int next = 0;
-        for (Integer u : usuarios) {
-            mapeo.put(u, next);
-            mapeoInverso.put(next, u);
+        for (Integer u : usuarios.keySet()) {
+            mapeo.ins(u, next);
+            mapeoInverso.ins(next, u);
             next++;
         }
 
@@ -67,10 +68,14 @@ public class DisjointSetAux {
      * @param conexiones <- Lista de conexiones entre usuarios
      */
     public void crearUsuarios(ArrayList<Conexion> conexiones) {
-        usuarios = new HashSet<>();
+
+        double fc = 2.5; // factor de carga por defecto 2,5
+        int m0 = (int) ((2.0 * conexiones.size()) / 2.5); // tamanio de tabla como máximo 2*numero de conexiones /
+                                                          // factor de carga
+        usuarios = new MiHashSet<>(m0, fc);
         for (Conexion c : conexiones) {
-            usuarios.add(c.getc1());
-            usuarios.add(c.getc2());
+            usuarios.ins(c.getc1());
+            usuarios.ins(c.getc2());
         }
     }
 
@@ -81,19 +86,22 @@ public class DisjointSetAux {
      */
     public ArrayList<ArrayList<Integer>> crearGrumos() {
         int id, raiz;
-        grumos = new HashMap<>();
+        grumos = new MiHashMap<>(usuarios.size(), 2.5); // factor de carga 2.5 por defecto
+
         for (Integer u : mapeo.keySet()) {
             id = mapeo.get(u);
             raiz = ds.find(id);
             if (!grumos.containsKey(raiz)) {
-                grumos.put(raiz, new ArrayList<Integer>());
+                grumos.ins(raiz, new ArrayList<Integer>());
             }
             grumos.get(raiz).add(u);
         }
+
         ArrayList<ArrayList<Integer>> res = new ArrayList<>();
         for (ArrayList<Integer> grumo : grumos.values()) {
             res.add(grumo);
         }
+
         return res;
     }
 }
