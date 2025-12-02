@@ -217,4 +217,20 @@ public class MiHashMap<K, V> {
         }
         return (p == null) ? false : true;
     }
+
+    @Override
+    public String toString() {
+        String res = "";
+        for (int i = 0; i < m; i++) {
+            Nodo<K, V> p = tabla[i];
+
+            while (p != null) {
+                res += p.clave + " " + p.valor + "\n";
+                p = p.sig;
+            }
+        }
+
+        return res;
+
+    }
 }

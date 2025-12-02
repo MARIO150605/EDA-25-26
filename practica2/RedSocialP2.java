@@ -115,10 +115,21 @@ public class RedSocialP2 implements IRedSocialP2 {
                 ArrayList<Integer> grumo1 = grusSeleccionados.get(i);
                 ArrayList<Integer> grumo2 = grusSeleccionados.get(i + 1);
 
-                u1 = grumo1.get(1);
+                // u1 = grumo1.get(1);
+                // u2 = grumo2.get(0);
+
+                u1 = grumo1.get(0);
                 u2 = grumo2.get(0);
 
-                nuevas.add(new Conexion(u1, u2));
+                // Obtenemos la raíz interna de Union-Find
+                int raiz1 = dsa.getds().find(dsa.getmapeo().get(u1));
+                int raiz2 = dsa.getds().find(dsa.getmapeo().get(u2));
+
+                // Convertimos a usuario real
+                int real1 = dsa.getmapeoInverso().get(raiz1);
+                int real2 = dsa.getmapeoInverso().get(raiz2);
+
+                nuevas.add(new Conexion(real1, real2));
             }
         }
 

@@ -85,16 +85,17 @@ public class DisjointSetAux {
      * @return
      */
     public ArrayList<ArrayList<Integer>> crearGrumos() {
-        int id, raiz;
+        int id, raizInterna, raizReal;
         grumos = new MiHashMap<>(usuarios.size(), 2.5); // factor de carga 2.5 por defecto
 
         for (Integer u : mapeo.keySet()) {
             id = mapeo.get(u);
-            raiz = ds.find(id);
-            if (!grumos.containsKey(raiz)) {
-                grumos.ins(raiz, new ArrayList<Integer>());
+            raizInterna = ds.find(id);
+            raizReal = mapeoInverso.get(raizInterna);
+            if (!grumos.containsKey(raizReal)) {
+                grumos.ins(raizReal, new ArrayList<Integer>());
             }
-            grumos.get(raiz).add(u);
+            grumos.get(raizReal).add(u);
         }
 
         ArrayList<ArrayList<Integer>> res = new ArrayList<>();
@@ -103,5 +104,21 @@ public class DisjointSetAux {
         }
 
         return res;
+    }
+
+    public MiHashMap<Integer, ArrayList<Integer>> getmapGrumo(){
+        return grumos;
+    }
+
+    public DisjointSet getds(){
+        return ds;
+    }
+
+    public MiHashMap<Integer, Integer> getmapeo(){
+        return mapeo;
+    }
+
+    public MiHashMap<Integer, Integer> getmapeoInverso(){
+        return mapeoInverso;
     }
 }

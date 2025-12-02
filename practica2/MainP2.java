@@ -56,7 +56,7 @@ public class MainP2 {
 
         Y.salvaNuevasRel("extra.txt");
         // Y.informe();
-
+        //System.out.println(Y.dsa.getmapGrumo());
         in.close();
     }
 
