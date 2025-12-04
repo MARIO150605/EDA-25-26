@@ -126,8 +126,8 @@ public class RedSocialP2 implements IRedSocialP2 {
                 int raiz2 = dsa.getds().find(dsa.getmapeo().get(u2));
 
                 // Convertimos a usuario real
-                int real1 = dsa.getmapeoInverso().get(raiz1);
-                int real2 = dsa.getmapeoInverso().get(raiz2);
+                int real1 = dsa.getmapeoInverso()[raiz1];
+                int real2 = dsa.getmapeoInverso()[raiz2];
 
                 nuevas.add(new Conexion(real1, real2));
             }

@@ -1,7 +1,7 @@
 import java.util.*;
 
 /**
- * Clase auxiliar para el mapeo entre los ids reales y los necesearios en
+ * Clase auxiliar para el mapeo entre los ids reales y los necesarios en
  * DisjointSet.
  * 
  * @author Mario San José de Prado (K7)
@@ -9,7 +9,7 @@ import java.util.*;
  */
 public class DisjointSetAux {
     private MiHashMap<Integer, Integer> mapeo; // nodo -> id
-    private MiHashMap<Integer, Integer> mapeoInverso; // id -> nodo
+    private int[] mapeoInverso; // id -> nodo
     private MiHashSet<Integer> usuarios;
     private DisjointSet ds;
     private MiHashMap<Integer, ArrayList<Integer>> grumos; // raiz y grumo asociado
@@ -25,12 +25,12 @@ public class DisjointSetAux {
         crearUsuarios(conexiones);
 
         mapeo = new MiHashMap<>(usuarios.size(), 2.5); // factor de carga 2.5 por defecto
-        mapeoInverso = new MiHashMap<>(usuarios.size(), 2.5);
+        mapeoInverso = new int[usuarios.size()];
 
         int next = 0;
         for (Integer u : usuarios.keySet()) {
             mapeo.ins(u, next);
-            mapeoInverso.ins(next, u);
+            mapeoInverso[next] = u;
             next++;
         }
 
@@ -91,7 +91,7 @@ public class DisjointSetAux {
         for (Integer u : mapeo.keySet()) {
             id = mapeo.get(u);
             raizInterna = ds.find(id);
-            raizReal = mapeoInverso.get(raizInterna);
+            raizReal = mapeoInverso[raizInterna];
             if (!grumos.containsKey(raizReal)) {
                 grumos.ins(raizReal, new ArrayList<Integer>());
             }
@@ -118,7 +118,7 @@ public class DisjointSetAux {
         return mapeo;
     }
 
-    public MiHashMap<Integer, Integer> getmapeoInverso(){
+    public int[] getmapeoInverso(){
         return mapeoInverso;
     }
 }

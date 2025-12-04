@@ -1,6 +1,5 @@
 import java.io.IOException;
 import java.util.*;
-import java.util.Random;
 
 /**
  * Clase de control de tiempos del Main para el algoritmo de la practica.
@@ -12,7 +11,7 @@ public class MainTiempoP2 {
 
     static int Nrep = 10; // Numero de repeticiones
     static int Ninc = 100; // incremento usuarios
-    static int Nfin = 10000000; // maximo usuarios
+    static int Nfin = 20000000; // maximo usuarios
     static final Random RND = new Random();
 
     public static void main(String[] args) throws IOException {
@@ -79,6 +78,10 @@ public class MainTiempoP2 {
 
             if (Ninicio == 1000000) { // cuando llegue a 1M de 1M en 1M
                 Ninc = 1000000;
+            }
+
+            if (Ninicio == 10000000) {
+                Ninc = 2000000;
             }
 
         }
